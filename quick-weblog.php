@@ -89,7 +89,7 @@ function quick_weblog_submit_form() {
   // Create a new post
   $post_data = array(
     'post_title' => $title,
-    'post_content' => sprintf( '<blockquote>%s</blockquote><img src="%s" alt="%s"><p><a href="%s" target="_blank">%s</a></p>', $quote, $image_url, $image_description, $url, $url ),
+    'post_content' => sprintf( '<blockquote class="wp-block-quote"><figure class="wp-block-image"><img decoding="async" src="%s" alt><figcaption class="wp-element-caption">%s</figcaption></figure><p>%s</p><cite><a href="%s" target="_blank" rel="noreferrer noopener">%s</a></cite></blockquote>', $image_url, $image_description, $quote, $url, $url ),
     'post_category' => array( $category ),
     'tags_input' => $tags,
     'post_status' => 'publish'
