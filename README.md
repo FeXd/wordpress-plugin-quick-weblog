@@ -20,4 +20,7 @@ This plugin could auto-populate most of the form by scraping the data from artic
 - [WordPress Plugins Directory](https://wordpress.org/plugins/)
 
 ## 📜 License
-Coming soon.
+Copyright (c) 2023 Arlin Schaffel
+
+Licensed under the [MIT License](https://choosealicense.com/licenses/mit/), available here:
+https://github.com/FeXd/wordpress-plugin-quick-weblog/blob/main/LICENSE.md
