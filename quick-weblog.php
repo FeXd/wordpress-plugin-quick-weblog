@@ -156,7 +156,13 @@ function quick_weblog_submit_form() {
   $block_name = 'core/paragraph';
   $innerHTML  = 'Sample paragraph text.';
 
-  $converted_block = new WP_Block_Parser_Block( $block_name, array(), array(), $innerHTML, array( $innerHTML ) );
+  $converted_block = new WP_Block_Parser_Block(
+    $block_name, // Name of block @example "core/paragraph"
+    array(), // Optional set of attributes from block comment delimiters @example array( 'columns' => 3 )
+    array(), // List of inner blocks (of this same class)
+    $innerHTML, // Resultant HTML from inside block comment delimiters after removing inner blocks
+    array( $innerHTML ) // List of string fragments and null markers where inner blocks were found
+  );
   // WP_CLI::log( print_r( $converted_block, true ) );
 
   $serialized_block = serialize_block( (array) $converted_block );
