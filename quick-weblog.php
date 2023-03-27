@@ -132,18 +132,25 @@ function quick_weblog_submit_form() {
   $category = intval( $_POST['category'] );
   $tags = sanitize_text_field( $_POST['tags'] );
 
+  // Create block content
+  $image_block = '<!-- wp:image {"url":"' . esc_attr($image_url) . '","alt":"' . esc_attr($image_description) . '"} -->' .
+      '<figure class="wp-block-image">' .
+          '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($image_description) . '">' .
+          '<figcaption>' . esc_html($image_description) . '</figcaption>' .
+      '</figure><!-- /wp:image -->';
+
+  $quote_block = '<!-- wp:quote {"citation":"' . esc_attr($url) . '"} -->' .
+      '<blockquote class="wp-block-quote">' .
+          '<p>' . esc_html($quote) . '</p>' .
+          '<cite><a href="' . esc_url($url) . '" target="_blank" rel="noreferrer noopener">' . esc_html($url) . '</a></cite>' .
+      '</blockquote><!-- /wp:quote -->';
+
+  $block_content = $image_block . $quote_block;
+
   // Create a new post
   $post_data = array(
     'post_title' => $title,
-    'post_content' => sprintf( '
-      <blockquote class="wp-block-quote">
-        <figure class="wp-block-image">
-          <img decoding="async" src="%s" alt>
-          <figcaption class="wp-element-caption">%s</figcaption>
-        </figure><p>%s</p>
-        <cite><a href="%s" target="_blank" rel="noreferrer noopener">%s</a></cite>
-      </blockquote>'
-      , $image_url, $image_description, $quote, $url, $url ),
+    'post_content' => $block_content,
     'post_category' => array( $category ),
     'tags_input' => $tags,
     'post_status' => 'publish'
