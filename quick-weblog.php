@@ -148,6 +148,29 @@ function quick_weblog_submit_form() {
     'tags_input' => $tags,
     'post_status' => 'publish'
   );
+
+  /*
+  * Create a block programmatically and serialize it.
+  * https://developer.wordpress.org/reference/functions/serialize_block/
+  */
+  $block_name = 'core/paragraph';
+  $innerHTML  = 'Sample paragraph text.';
+
+  $converted_block = new WP_Block_Parser_Block( $block_name, array(), array(), $innerHTML, array( $innerHTML ) );
+  // WP_CLI::log( print_r( $converted_block, true ) );
+
+  $serialized_block = serialize_block( (array) $converted_block );
+  // WP_CLI::log( $serialized_block );
+
+  // Create a new post
+  $post_data = array(
+    'post_title' => $title,
+    'post_content' => $serialized_block,
+    'post_category' => array( $category ),
+    'tags_input' => $tags,
+    'post_status' => 'publish'
+  );
+
   $post_id = wp_insert_post( $post_data );
 
   // Redirect to the new post
