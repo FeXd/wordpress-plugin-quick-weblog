@@ -2,15 +2,14 @@
 
 /*
 Plugin Name: Quick Weblog
-Plugin URI: https://fexd.com/wordpress/plugins/quick-weblog
-Description: Create new weblog posts quickly and easily.
+Plugin URI: https://fexd.github.io/wordpress-plugin-quick-weblog/
+Description: Quickly create a simple Post that highlights an existing news article.
 Version: 0.0.1
 Author: Arlin Schaffel
-Author URI: https://fexd.com
-License: GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Author URI: https://github.com/FeXd
+License: MIT
+License URI: https://github.com/FeXd/wordpress-plugin-quick-weblog/blob/main/LICENSE.md
 Text Domain: quick-weblog
-Domain Path: /languages/
 */
 
 function quick_weblog_form() {
@@ -31,6 +30,9 @@ function quick_weblog_form() {
     #quick-weblog div label {
       font-weight: 600;
     }
+    #quick-weblog-description {
+      max-width: 520px;
+    }
     #quick-weblog div input,
     #quick-weblog div textarea,
     #quick-weblog div select {
@@ -42,6 +44,8 @@ function quick_weblog_form() {
       width: auto;
     }
   </style>
+
+  <p id="quick-weblog-description">Quickly create a simple Post that highlights an existing news article. Posts include a captioned image and quote with URL citation of original article. All fields are required.</p>
 
   <div class="card">
     <form id="quick-weblog" method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
@@ -90,11 +94,6 @@ function quick_weblog_form() {
   <?php
 }
 
-function quick_weblog_add_form_to_page() {
-  add_shortcode( 'quick-weblog-form', 'quick_weblog_form' );
-}
-add_action( 'init', 'quick_weblog_add_form_to_page' );
-
 function quick_weblog_add_menu_page() {
   add_menu_page(
     __( 'Quick Weblog', 'quick-weblog' ), // Page title
@@ -102,8 +101,8 @@ function quick_weblog_add_menu_page() {
     'manage_options', // Capability required to access the page
     'quick-weblog', // Menu slug
     'quick_weblog_menu_page', // Callback function to render the page
-    'dashicons-admin-post', // Icon
-    30 // Position in the menu
+    'dashicons-welcome-write-blog', // Icon
+    4.9021042 // Position in the menu
   );
 }
 add_action( 'admin_menu', 'quick_weblog_add_menu_page' );
@@ -161,6 +160,7 @@ function quick_weblog_submit_form() {
   wp_redirect( get_permalink( $post_id ) );
   exit();
 }
+
 add_action( 'admin_post_quick_weblog_submit_form', 'quick_weblog_submit_form' );
 
 ?>
