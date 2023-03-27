@@ -15,32 +15,78 @@ Domain Path: /languages/
 
 function quick_weblog_form() {
   ?>
-  <form method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
-    <label for="title"><?php _e( 'Title', 'quick-weblog' ); ?></label>
-    <input type="text" name="title" id="title" required>
+  <style>
+    #quick-weblog {
+      padding: 1em 0;
+    }
+    #quick-weblog div {
+      padding: 0.75em 0;
+    }
+    #quick-weblog div:nth-last-child(1) {
+      padding-bottom: 0;
+    } 
+    #quick-weblog div:nth-child(1) {
+      padding-top: 0;
+    } 
+    #quick-weblog div label {
+      font-weight: 600;
+    }
+    #quick-weblog div input,
+    #quick-weblog div textarea,
+    #quick-weblog div select {
+      display: block;
+      max-width: 600px;
+      width: 99%;
+    }
+    #quick-weblog div input[type=submit] {
+      width: auto;
+    }
+  </style>
 
-    <label for="image_url"><?php _e( 'Image URL', 'quick-weblog' ); ?></label>
-    <input type="text" name="image_url" id="image_url" required>
+  <div class="card">
+    <form id="quick-weblog" method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
+      <div>
+        <label for="url"><?php _e( 'Post URL', 'quick-weblog' ); ?></label>
+        <input type="text" name="url" id="url" required>
+      </div>
 
-    <label for="image_description"><?php _e( 'Image Description', 'quick-weblog' ); ?></label>
-    <textarea name="image_description" id="image_description" required></textarea>
+      <div>
+        <label for="title"><?php _e( 'Post Title', 'quick-weblog' ); ?></label>
+        <input type="text" name="title" id="title" required>
+      </div>
 
-    <label for="quote"><?php _e( 'Quote', 'quick-weblog' ); ?></label>
-    <textarea name="quote" id="quote" required></textarea>
+      <div>
+        <label for="image_url"><?php _e( 'Image URL', 'quick-weblog' ); ?></label>
+        <input type="text" name="image_url" id="image_url" required>
+      </div>
 
-    <label for="url"><?php _e( 'URL', 'quick-weblog' ); ?></label>
-    <input type="text" name="url" id="url" required>
+      <div>
+        <label for="image_description"><?php _e( 'Image Description', 'quick-weblog' ); ?></label>
+        <input type="text" name="image_description" id="image_description" required>
+      </div>
 
-    <label for="category"><?php _e( 'Category', 'quick-weblog' ); ?></label>
-    <?php wp_dropdown_categories( array( 'name' => 'category', 'orderby' => 'name', 'taxonomy' => 'category' ) ); ?>
+      <div>
+        <label for="quote"><?php _e( 'Quote', 'quick-weblog' ); ?></label>
+        <textarea name="quote" id="quote" rows="6" required></textarea>
+      </div>
 
-    <label for="tags"><?php _e( 'Tags', 'quick-weblog' ); ?></label>
-    <input type="text" name="tags" id="tags" required>
+      <div>
+        <label for="category"><?php _e( 'Category', 'quick-weblog' ); ?></label>
+        <?php wp_dropdown_categories( array( 'name' => 'category', 'orderby' => 'name', 'taxonomy' => 'category', 'selected' => 1) ); ?>
+      </div>
 
-    <input type="hidden" name="action" value="quick_weblog_submit_form">
-    <?php wp_nonce_field( 'quick_weblog_submit_form', 'quick_weblog_form_nonce' ); ?>
-    <input type="submit" value="<?php _e( 'Submit', 'quick-weblog' ); ?>">
-  </form>
+      <div>
+        <label for="tags"><?php _e( 'Tags', 'quick-weblog' ); ?></label>
+        <input type="text" name="tags" id="tags" required>
+      </div>
+
+      <div>
+        <input type="hidden" name="action" value="quick_weblog_submit_form">
+        <?php wp_nonce_field( 'quick_weblog_submit_form', 'quick_weblog_form_nonce' ); ?>
+        <input type="submit" value="<?php _e( 'Submit', 'quick-weblog' ); ?>">
+      </div>
+    </form>
+  </div>
   <?php
 }
 
@@ -89,7 +135,15 @@ function quick_weblog_submit_form() {
   // Create a new post
   $post_data = array(
     'post_title' => $title,
-    'post_content' => sprintf( '<blockquote>%s</blockquote><img src="%s" alt="%s"><p><a href="%s" target="_blank">%s</a></p>', $quote, $image_url, $image_description, $url, $url ),
+    'post_content' => sprintf( '
+      <blockquote class="wp-block-quote">
+        <figure class="wp-block-image">
+          <img decoding="async" src="%s" alt>
+          <figcaption class="wp-element-caption">%s</figcaption>
+        </figure><p>%s</p>
+        <cite><a href="%s" target="_blank" rel="noreferrer noopener">%s</a></cite>
+      </blockquote>'
+      , $image_url, $image_description, $quote, $url, $url ),
     'post_category' => array( $category ),
     'tags_input' => $tags,
     'post_status' => 'publish'
