@@ -12,6 +12,8 @@ License URI: https://github.com/FeXd/wordpress-plugin-quick-weblog/blob/main/LIC
 Text Domain: quick-weblog
 */
 
+$api_key = get_option('quick_weblog_api_key', '');
+
 function quick_weblog_form() {
   ?>
   <style>
@@ -104,7 +106,17 @@ function quick_weblog_add_menu_page() {
     'dashicons-welcome-write-blog', // Icon
     4.9021042 // Position in the menu
   );
+
+  add_submenu_page(
+    'quick-weblog', // Parent slug
+    __( 'API Settings', 'quick-weblog' ), // Page title
+    __( 'API Settings', 'quick-weblog' ), // Menu title
+    'manage_options', // Capability required to access the page
+    'quick-weblog-settings', // Menu slug
+    'quick_weblog_settings_page' // Callback function to render the page
+  );
 }
+
 add_action( 'admin_menu', 'quick_weblog_add_menu_page' );
 
 function quick_weblog_menu_page() {
@@ -162,5 +174,41 @@ function quick_weblog_submit_form() {
 }
 
 add_action( 'admin_post_quick_weblog_submit_form', 'quick_weblog_submit_form' );
+
+function quick_weblog_settings_init() {
+  add_settings_section('quick_weblog_api_section', 'API Settings', null, 'quick-weblog');
+  add_settings_field('quick_weblog_api_key', 'API Key', 'quick_weblog_api_key_callback', 'quick-weblog', 'quick_weblog_api_section');
+
+  register_setting('quick_weblog_settings', 'quick_weblog_use_api', 'boolval');
+  register_setting('quick_weblog_settings', 'quick_weblog_api_key', 'sanitize_text_field');
+}
+
+add_action('admin_init', 'quick_weblog_settings_init');
+
+function quick_weblog_api_key_callback() {
+  $value = get_option('quick_weblog_api_key', '');
+  echo '<input type="text" name="quick_weblog_api_key" value="' . esc_attr($value) . '" />';
+}
+
+function quick_weblog_add_settings_link($links) {
+  $settings_link = '<a href="' . admin_url('options-general.php?page=quick-weblog') . '">' . __( 'Settings', 'quick-weblog' ) . '</a>';
+  array_push($links, $settings_link);
+  return $links;
+}
+
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'quick_weblog_add_settings_link');
+
+function quick_weblog_settings_page() {
+  ?>
+  <div class="wrap">
+    <h1><?php _e( 'API Settings', 'quick-weblog' ); ?></h1>
+    <form method="post" action="options.php">
+      <?php settings_fields('quick_weblog_settings'); ?>
+      <?php do_settings_sections('quick-weblog'); ?>
+      <?php submit_button(); ?>
+    </form>
+  </div>
+  <?php
+}
 
 ?>
