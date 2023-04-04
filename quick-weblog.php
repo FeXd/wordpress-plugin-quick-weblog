@@ -12,9 +12,10 @@ License URI: https://github.com/FeXd/wordpress-plugin-quick-weblog/blob/main/LIC
 Text Domain: quick-weblog
 */
 
-$api_key = get_option('quick_weblog_api_key', '');
-
 function quick_weblog_form() {
+  
+  $api_key = get_option('quick_weblog_api_key', '');
+
   ?>
   <style>
     #quick-weblog {
@@ -47,13 +48,25 @@ function quick_weblog_form() {
     }
   </style>
 
+  <script src="<?php echo plugin_dir_url( __FILE__ ); ?>quick-weblog.js"></script>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", (event) => {
+      document.getElementById("quick-test").addEventListener("click", (click_event) => {
+        getArticle(document.getElementById("quick-test-input").value, "<?php echo esc_js( wp_kses( $api_key, array() ) ); ?>" );
+      });
+    });
+  </script>
+
   <p id="quick-weblog-description">Quickly create a simple Post that highlights an existing news article. Posts include a captioned image and quote with URL citation of original article. All fields are required.</p>
+
+  <button id="quick-test">Quick Test</button>
 
   <div class="card">
     <form id="quick-weblog" method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
       <div>
         <label for="url"><?php _e( 'Post URL', 'quick-weblog' ); ?></label>
-        <input type="text" name="url" id="url" required>
+        <input id="quick-test-input" type="text" name="url" id="url" required>
       </div>
 
       <div>
