@@ -104,6 +104,12 @@ function quick_weblog_form() {
       </div>
 
       <div>
+        <label for="post_date"><?php _e( 'Post Date', 'quick-weblog' ); ?></label>
+        <?php $default_date = date( 'Y-m-d\TH:i' ); ?>
+        <input type="datetime-local" name="post_date" id="quick-weblog-post_date" required value="<?php echo $default_date; ?>">
+      </div>
+
+      <div>
         <input type="hidden" name="action" value="quick_weblog_submit_form">
         <?php wp_nonce_field( 'quick_weblog_submit_form', 'quick_weblog_form_nonce' ); ?>
         <input type="submit" value="<?php _e( 'Submit', 'quick-weblog' ); ?>">
