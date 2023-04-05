@@ -27,15 +27,15 @@ function getArticle(url, api_key) {
     return response.json();
   })
 	.then(response => {
-    if (response.error >= 0) {
+    console.log(response);
+
+    if (response.error > 0) {
       throw new Error(`Request received error: ${response.message}`);
     }
 
-    console.log(response);
-
     document.getElementById("quick-weblog-title").value = response.data?.title;
-    document.getElementById("quick-weblog-image_url").value = "Image via " + response.data?.souce;
-    document.getElementById("quick-weblog-image_description").value = response.data?.title;
+    document.getElementById("quick-weblog-image_url").value = response.data?.image;
+    document.getElementById("quick-weblog-image_description").value = "image via " + response.data?.source;
     document.getElementById("quick-weblog-quote").value = response.data?.description;
 
     updateStatus("Successfully used Auto Fill to populate form!");
