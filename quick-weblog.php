@@ -52,21 +52,25 @@ function quick_weblog_form() {
 
   <script>
     window.addEventListener("DOMContentLoaded", (event) => {
-      document.getElementById("quick-test").addEventListener("click", (click_event) => {
-        getArticle(document.getElementById("quick-test-input").value, "<?php echo esc_js( wp_kses( $api_key, array() ) ); ?>" );
+      document.getElementById("quick-weblog-auto").addEventListener("click", (click_event) => {
+        click_event.preventDefault();
+        getArticle(document.getElementById("quick-weblog-url").value, "<?php echo esc_js( wp_kses( $api_key, array() ) ); ?>" );
       });
     });
   </script>
 
   <p id="quick-weblog-description">Quickly create a simple Post that highlights an existing news article. Posts include a captioned image and quote with URL citation of original article. All fields are required.</p>
 
-  <button id="quick-test">Quick Test</button>
-
   <div class="card">
     <form id="quick-weblog" method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
       <div>
         <label for="url"><?php _e( 'Post URL', 'quick-weblog' ); ?></label>
-        <input id="quick-test-input" type="text" name="url" id="quick-weblog-url" required>
+        <input type="text" name="url" id="quick-weblog-url" required>
+      </div>
+
+      <div>
+        <button id="quick-weblog-auto">Auto Fill</button>
+        <span id="quick-weblog-status">Attempt to auto fill form based on <strong>Post URL</strong>.</span>
       </div>
 
       <div>

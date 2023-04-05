@@ -1,5 +1,12 @@
 function getArticle(url, api_key) {
 
+  if (url === "") {
+    updateStatus("You  must fill out <strong>Post URL</strong> to use Auto Fill.");
+    return;
+  } else {
+    updateStatus("Attempting to fetch information and Auto Fill...");
+  }
+
   disableForm();
 
   const base_url = 'https://article-extractor2.p.rapidapi.com/article/parse?url=';
@@ -15,11 +22,15 @@ function getArticle(url, api_key) {
   fetch(base_url + url, options)
 	.then(response => {
     if (response.status !== 200) {
-      throw new Error(`Request failed with status ${response.status}`);
+      throw new Error(`Request failed with status: ${response.status}`);
     }
     return response.json();
   })
 	.then(response => {
+    if (response.error >= 0) {
+      throw new Error(`Request received error: ${response.message}`);
+    }
+
     console.log(response);
 
     document.getElementById("quick-weblog-title").value = response.data?.title;
@@ -27,9 +38,11 @@ function getArticle(url, api_key) {
     document.getElementById("quick-weblog-image_description").value = response.data?.title;
     document.getElementById("quick-weblog-quote").value = response.data?.description;
 
+    updateStatus("Successfully used Auto Fill to populate form!");
     enableForm();
   })
 	.catch(err => {
+    updateStatus(err);
     console.error(err);
     enableForm();
   });
@@ -50,4 +63,8 @@ function enableForm() {
 
 function disableForm() {
   toggleFormElements(false);
+}
+
+function updateStatus(status) {
+  document.getElementById("quick-weblog-status").innerHTML = status;
 }
