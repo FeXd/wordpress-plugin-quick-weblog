@@ -66,27 +66,27 @@ function quick_weblog_form() {
     <form id="quick-weblog" method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>">
       <div>
         <label for="url"><?php _e( 'Post URL', 'quick-weblog' ); ?></label>
-        <input id="quick-test-input" type="text" name="url" id="url" required>
+        <input id="quick-test-input" type="text" name="url" id="quick-weblog-url" required>
       </div>
 
       <div>
         <label for="title"><?php _e( 'Post Title', 'quick-weblog' ); ?></label>
-        <input type="text" name="title" id="title" required>
+        <input type="text" name="title" id="quick-weblog-title" required>
       </div>
 
       <div>
         <label for="image_url"><?php _e( 'Image URL', 'quick-weblog' ); ?></label>
-        <input type="text" name="image_url" id="image_url" required>
+        <input type="text" name="image_url" id="quick-weblog-image_url" required>
       </div>
 
       <div>
         <label for="image_description"><?php _e( 'Image Description', 'quick-weblog' ); ?></label>
-        <input type="text" name="image_description" id="image_description" required>
+        <input type="text" name="image_description" id="quick-weblog-image_description" required>
       </div>
 
       <div>
         <label for="quote"><?php _e( 'Quote', 'quick-weblog' ); ?></label>
-        <textarea name="quote" id="quote" rows="6" required></textarea>
+        <textarea name="quote" id="quick-weblog-quote" rows="6" required></textarea>
       </div>
 
       <div>
@@ -96,7 +96,7 @@ function quick_weblog_form() {
 
       <div>
         <label for="tags"><?php _e( 'Tags', 'quick-weblog' ); ?></label>
-        <input type="text" name="tags" id="tags" required>
+        <input type="text" name="tags" id="quick-weblog-tags" required>
       </div>
 
       <div>
