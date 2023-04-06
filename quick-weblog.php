@@ -4,7 +4,7 @@
 Plugin Name: Quick Weblog
 Plugin URI: https://github.com/FeXd/wordpress-plugin-quick-weblog
 Description: Quickly create a simple Post that highlights an existing news article.
-Version: 0.0.2
+Version: 0.0.3
 Author: Arlin Schaffel
 Author URI: https://github.com/FeXd
 License: MIT
@@ -176,6 +176,7 @@ function quick_weblog_submit_form()
   $url = esc_url_raw($_POST['url']);
   $category = intval($_POST['category']);
   $tags = sanitize_text_field($_POST['tags']);
+  $post_date = sanitize_text_field($_POST['post_date']);
 
   // Create block content
   $image_block = '<!-- wp:image {"url":"' . esc_attr($image_url) . '","alt":"' . esc_attr($image_description) . '"} -->' .
@@ -198,7 +199,8 @@ function quick_weblog_submit_form()
     'post_content' => $block_content,
     'post_category' => array($category),
     'tags_input' => $tags,
-    'post_status' => 'publish'
+    'post_status' => 'publish',
+    'post_date' => $post_date
   );
   $post_id = wp_insert_post($post_data);
 
