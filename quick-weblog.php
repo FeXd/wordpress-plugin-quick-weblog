@@ -4,7 +4,7 @@
 Plugin Name: Quick Weblog
 Plugin URI: https://github.com/FeXd/wordpress-plugin-quick-weblog
 Description: Quickly create a simple Post that highlights an existing news article.
-Version: 0.0.2
+Version: 0.0.3
 Author: Arlin Schaffel
 Author URI: https://github.com/FeXd
 License: MIT
