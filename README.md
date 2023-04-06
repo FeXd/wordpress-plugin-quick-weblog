@@ -16,6 +16,12 @@ A simple [WordPress](https://wordpress.org) plugin to help facilitate posting to
 ## 🤖 Auto Fill
 Client side JavaScript is used in conjunction with [Rapid API Article Extractor](https://rapidapi.com/pwshub-pwshub-default/api/article-extractor2/) to attempt to Auto Fill the form with basic information. This requires an API Key which can be set via plugin settings.
 
+## 📸 Screenshots
+| Plugin Video | Example Post |
+|--------------|-----------|
+|![alt text](./quick-weblog-video-01.gif)|![alt text](./quick-weblog-screenshot-02.jpg)|
+
+
 ## 📚 Resources
 - [WordPress Plugin Developer Handbook](https://developer.wordpress.org/plugins/)
 - [WordPress Plugins Directory](https://wordpress.org/plugins/)
