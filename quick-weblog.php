@@ -2,9 +2,9 @@
 
 /*
 Plugin Name: Quick Weblog
-Plugin URI: https://fexd.github.io/wordpress-plugin-quick-weblog/
+Plugin URI: https://github.com/FeXd/wordpress-plugin-quick-weblog
 Description: Quickly create a simple Post that highlights an existing news article.
-Version: 0.0.1
+Version: 0.0.2
 Author: Arlin Schaffel
 Author URI: https://github.com/FeXd
 License: MIT
@@ -62,7 +62,7 @@ function quick_weblog_form()
     window.addEventListener("DOMContentLoaded", (event) => {
       document.getElementById("quick-weblog-auto").addEventListener("click", (click_event) => {
         click_event.preventDefault();
-        getArticle(document.getElementById("quick-weblog-url").value, "<?php echo esc_js(wp_kses($api_key, array())); ?>");
+        fetchAndPopulateFormFields(document.getElementById("quick-weblog-url").value, "<?php echo esc_js(wp_kses($api_key, array())); ?>");
       });
     });
   </script>
