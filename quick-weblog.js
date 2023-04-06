@@ -39,6 +39,11 @@ function fetchAndPopulateFormFields(articleUrl, rapidApiKey) {
     return;
   }
 
+  if (rapidApiKey === "") {
+    updateStatus("Your API Key is missing. Please update settings to use Auto Fill.");
+    return;
+  }
+
   updateStatus("Attempting to fetch information and Auto Fill...");
   disableForm();
 
