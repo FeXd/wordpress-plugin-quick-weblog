@@ -112,9 +112,8 @@ function quick_weblog_form()
       </div>
 
       <div>
-        <label for="post_date"><?php _e('Post Date', 'quick-weblog'); ?></label>
-        <?php $default_date = date('Y-m-d\TH:i'); ?>
-        <input type="datetime-local" name="post_date" id="quick-weblog-post_date" required value="<?php echo $default_date; ?>">
+        <label for="post_date"><?php _e('Post Date', 'quick-weblog'); ?> (Optional)</label>
+        <input type="datetime-local" name="post_date" id="quick-weblog-post_date">
       </div>
 
       <div>
