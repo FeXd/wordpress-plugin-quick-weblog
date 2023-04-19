@@ -4,7 +4,7 @@
 Plugin Name: Quick Weblog
 Plugin URI: https://github.com/FeXd/wordpress-plugin-quick-weblog
 Description: Quickly create a simple Post that highlights an existing news article.
-Version: 0.0.3
+Version: 0.0.4
 Author: Arlin Schaffel
 Author URI: https://github.com/FeXd
 License: MIT
@@ -73,7 +73,7 @@ function quick_weblog_form()
     <form id="quick-weblog" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
       <div>
         <label for="url"><?php _e('Post URL', 'quick-weblog'); ?></label>
-        <input type="text" name="url" id="quick-weblog-url" required>
+        <input type="text" name="url" id="quick-weblog-url" required spellcheck="false">
       </div>
 
       <div>
@@ -83,22 +83,22 @@ function quick_weblog_form()
 
       <div>
         <label for="title"><?php _e('Post Title', 'quick-weblog'); ?></label>
-        <input type="text" name="title" id="quick-weblog-title" required>
+        <input type="text" name="title" id="quick-weblog-title" required spellcheck="false">
       </div>
 
       <div>
         <label for="image_url"><?php _e('Image URL', 'quick-weblog'); ?></label>
-        <input type="text" name="image_url" id="quick-weblog-image_url" required>
+        <input type="text" name="image_url" id="quick-weblog-image_url" required spellcheck="false">
       </div>
 
       <div>
         <label for="image_description"><?php _e('Image Description', 'quick-weblog'); ?></label>
-        <input type="text" name="image_description" id="quick-weblog-image_description" required>
+        <input type="text" name="image_description" id="quick-weblog-image_description" required spellcheck="false">
       </div>
 
       <div>
         <label for="quote"><?php _e('Quote', 'quick-weblog'); ?></label>
-        <textarea name="quote" id="quick-weblog-quote" rows="6" required></textarea>
+        <textarea name="quote" id="quick-weblog-quote" rows="6" required spellcheck="false"></textarea>
       </div>
 
       <div>
@@ -108,13 +108,12 @@ function quick_weblog_form()
 
       <div>
         <label for="tags"><?php _e('Tags', 'quick-weblog'); ?></label>
-        <input type="text" name="tags" id="quick-weblog-tags" required>
+        <input type="text" name="tags" id="quick-weblog-tags" required spellcheck="false">
       </div>
 
       <div>
-        <label for="post_date"><?php _e('Post Date', 'quick-weblog'); ?></label>
-        <?php $default_date = date('Y-m-d\TH:i'); ?>
-        <input type="datetime-local" name="post_date" id="quick-weblog-post_date" required value="<?php echo $default_date; ?>">
+        <label for="post_date"><?php _e('Post Date', 'quick-weblog'); ?> (Optional)</label>
+        <input type="datetime-local" name="post_date" id="quick-weblog-post_date">
       </div>
 
       <div>
